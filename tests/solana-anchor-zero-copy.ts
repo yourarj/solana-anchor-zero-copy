@@ -72,8 +72,8 @@ describe("solana-anchor-zero-copy", () => {
   });
 
   // send messages until it overflows
-  it("Send 920 long character 8 times to make account big", async () => {
-    for (let counter = 1; counter < 14; counter++) {
+  it("Send 920 long character 6 times to make account big", async () => {
+    for (let counter = 1; counter < 12; counter++) {
       const string_length = 920;
       try {
         const tx = await program.methods
@@ -84,17 +84,8 @@ describe("solana-anchor-zero-copy", () => {
           })
           .signers([author])
           .rpc();
-        console.log("#", counter, "Your transaction signature", tx);
-        console.log(
-          "https://explorer.solana.com/tx/" +
-            tx +
-            "?cluster=custom&customUrl=http%3A%2F%2Flocalhost%3A8899"
-        );
       } catch (e) {
         console.log("error occurred: ", e);
-        console.log("solana validator will stop after 30 seconds");
-
-        await new Promise((resolve) => setTimeout(resolve, 30_000));
       }
     }
   });
